@@ -6,6 +6,7 @@
 
 ### 몽고DB에서 설정해야하는 사항
 - 데이터베이스를 toyProject1라는 이름으로 생성한다.
+- toyProject1에 user라는 콜렉션을 생성한다.
 
 ### REST API서버를 개발하는데 도움이 되는 프로그램
 - postman
