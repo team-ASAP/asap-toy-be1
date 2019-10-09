@@ -11,6 +11,4 @@ module.exports = () => {
     connect();
 
     mongoose.connection.on('disconnected', connect);
-
-    require('./model/user');
 };
