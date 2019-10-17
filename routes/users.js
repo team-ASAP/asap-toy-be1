@@ -6,15 +6,17 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/:name', (req, res, next) => {
-  User.find({name : req.params.name }, (err, user) =>{
+// name -> id
+router.get('/:id', (req, res, next) => {
+  User.find({id : req.params.id }, (err, user) =>{
     res.json({ user: user });
   });
 });
 
-router.post('/join/:name/:passwd', (req, res, next) => {
+// name -> id
+router.post('/join/:id/:passwd', (req, res, next) => {
   const user = new User();
-  user.name = req.params.name;
+  user.id = req.params.id;
   user.passwd = req.params.passwd;
 
   user.save(err =>{
