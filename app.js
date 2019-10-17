@@ -13,9 +13,8 @@ db();
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
-
-app.use(swaggerDoc);
-
+const apiDocsRouter = require('./routes/apiDocs');
+const projectsRouter = require('./routes/projects');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -29,6 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+app.use('/apiDocs', apiDocsRouter);
+app.use('/projects', projectsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
