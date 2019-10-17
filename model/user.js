@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+<<<<<<< HEAD
 //schema
 const userSchema = new Schema({
   id: {
@@ -21,6 +22,13 @@ const userSchema = new Schema({
     type: String
   },
   data: Object
+=======
+// name -> id
+const userSchema = new Schema({
+    id: String,
+    passwd: String,
+    data: Object
+>>>>>>> project schema, get post add
 });
 
 module.exports = mongoose.model('User', userSchema);
