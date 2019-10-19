@@ -3,6 +3,7 @@
         "DBHOST": "mongodb://localhost:27017/toyProject1"
     },
     "JWT": {
+        "secretKey" : "nick",
         "expiresIn": 8640
     }
 }
