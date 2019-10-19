@@ -1,0 +1,8 @@
+{
+    "mongoDB": {
+        "DBHOST": "mongodb://localhost:27017/toyProject1"
+    },
+    "JWT": {
+        "expiresIn": 8640
+    }
+}
