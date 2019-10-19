@@ -1,24 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const Project = require('../model/project');
-<<<<<<< HEAD
 
-=======
->>>>>>> project schema, get post add
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-<<<<<<< HEAD
-=======
-router.get('/:no', (req, res, next) => {
-  User.find({no : req.params.no }, (err, user) =>{
-    res.json({ project: project });
-  });
-});
-
->>>>>>> project schema, get post add
 // 우선 컬럼 세 개만 넣어서 insert 테스트 하였습니다 :) 
 router.post('/createProject/:no/:madeId/:title', (req, res, next) => {
   const project = new Project();
@@ -29,17 +17,10 @@ router.post('/createProject/:no/:madeId/:title', (req, res, next) => {
   project.save(err =>{
     if(err){
       console.error(err);
-<<<<<<< HEAD
-      res.send("SUCCESS");
-      return;
-    }
-    res.send("FAILURE");
-=======
       res.json({result: 0});
       return;
     }
     res.json({result:1});
->>>>>>> project schema, get post add
   });
 });
 

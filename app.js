@@ -15,10 +15,7 @@ const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const apiDocsRouter = require('./routes/apiDocs');
 const projectsRouter = require('./routes/projects');
-<<<<<<< HEAD
 
-=======
->>>>>>> project schema, get post add
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
