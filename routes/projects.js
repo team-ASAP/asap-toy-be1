@@ -1,15 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const Project = require('../model/project');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
-});
-
-router.get('/:no', (req, res, next) => {
-  User.find({no : req.params.no }, (err, user) =>{
-    res.json({ project: project });
-  });
 });
 
 // 우선 컬럼 세 개만 넣어서 insert 테스트 하였습니다 :) 
