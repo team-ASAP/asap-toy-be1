@@ -17,10 +17,10 @@ router.post('/createProject/:no/:madeId/:title', (req, res, next) => {
   project.save(err =>{
     if(err){
       console.error(err);
-      res.json({result: 0});
+      res.send("SUCCESS");
       return;
     }
-    res.json({result:1});
+    res.send("FAILURE");
   });
 });
 
