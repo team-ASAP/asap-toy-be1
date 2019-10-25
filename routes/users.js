@@ -22,10 +22,10 @@ router.post('/join/:id/:passwd', (req, res, next) => {
   user.save(err =>{
     if(err){
       console.error(err);
-      res.json({result: 0});
+      res.send("SUCCESS");
       return;
     }
-    res.json({result:1});
+    res.send("FAILURE");
   });
 });
 
