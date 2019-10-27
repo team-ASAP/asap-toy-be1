@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 // 프로젝트 생성 스키마
 const projectSchema = new Schema({
-    no: Number,
     madeId: String,
     title: String,
     startDate: Date,
