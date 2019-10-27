@@ -4,6 +4,8 @@ const User = require('../model/user');
 const util = require('../util');
 const jwt = require('jsonwebtoken');
 const confJWT = require('../config').JWT;
+const bkfd2Password = require('pbkdf2-password');
+const hasher = bkfd2Password();
 
 router.post('/login', (req, res, next) => {
     User.findOne({"id" : req.body.id, "passwd": req.body.passwd }, (err, user) => {
@@ -30,21 +32,27 @@ router.post('/login', (req, res, next) => {
 router.post('/join', (req, res, next) => {
     const user = new User();
 
-    // required
-    user.id = req.body.id;
-    user.passwd = req.body.passwd;
-
-    // unrequired
-    if(req.body.data){
-        user.data = req.body.data;
-    }
-
-    user.save((err, value) => {
-        if(err){
-            res.json(util.successFalse(value, err));
-            return;
+    //hasher
+    hasher({password: req.body.passwd}, (err, pass, salt, hash) => {
+        if(err) return res.json(util.successFalse(err, "해쉬만들기 실패"));
+        
+        // required
+        user.id = req.body.id;
+        user.passwd = hash;
+        user.salt = salt;
+        
+        // unrequired
+        if(req.body.data){
+            user.data = req.body.data;
         }
-        res.json(util.successTrue(value));
+
+        user.save((err) => {
+            if(err){
+                res.json(util.successFalse(err, "회원가입 실패"));
+                return;
+            }
+            res.json(util.successTrue("성공"));
+        });
     });
 });
 

@@ -15,6 +15,9 @@ const userSchema = new Schema({
     required: [true, 'Password is required!'],
     select: false,
   },
+  salt: {
+    type: String
+  },
   data: Object,
 });
 
