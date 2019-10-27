@@ -10,11 +10,24 @@ router.get('/', function(req, res, next) {
 
 // 우선 컬럼 세 개만 넣어서 insert 테스트 하였습니다 :) 
 // 이미 projects라는게 경로에 명시되어 있기 때문에 create로 변경하였습니다.
-router.post('/create/:no/:madeId/:title', (req, res, next) => {
+router.post('/create', (req, res, next) => {
   const project = new Project();
-  project.no = req.params.no;
-  project.madeId = req.params.madeId;
-  project.title = req.params.title;
+
+  //https://docs.mongodb.com/manual/reference/method/Date/
+  //required
+  project.madeId = req.body.madeId;
+  project.title = req.body.title;
+  project.startDate = new Date(req.body.startDate);
+  project.endDate = new Date(req.body.endDate);
+  project.createdDate = new Date(req.body.createdDate);
+
+  //unrequired
+  if(req.body.maxPeople){
+    project.maxPeople = req.body.maxPeople;
+  }
+
+  project.isDeleted = false;
+
 
   project.save((err, value) =>{
     if(err){
