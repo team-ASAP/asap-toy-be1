@@ -18,9 +18,7 @@ router.post('/create/:no/:madeId/:title', (req, res, next) => {
 
   project.save((err, value) =>{
     if(err){
-      console.error(err);
-      
-      res.json(util.successFalse(value, "실패"));
+      res.json(util.successFalse(err, "실패"));
       return;
     }
     res.json(util.successTrue(value));
