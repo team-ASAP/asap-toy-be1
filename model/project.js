@@ -9,6 +9,7 @@ const projectSchema = new Schema({
     endDate: Date,
     maxPeople: Number,
     createdDate: Date,
+    deletedDate: Date,
     modifiedDate: Date,
     isDeleted: Boolean
 });
