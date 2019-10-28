@@ -7,6 +7,7 @@ const confJWT = require('../config').JWT;
 const bkfd2Password = require('pbkdf2-password');
 const hasher = bkfd2Password();
 
+//로그인
 router.post('/login', (req, res, next) => {
     User.findOne({"id" : req.body.id }, (err, user) => {
         if(err) return res.json(util.successFalse(user, err));
