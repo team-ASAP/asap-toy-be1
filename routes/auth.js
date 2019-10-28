@@ -8,27 +8,35 @@ const bkfd2Password = require('pbkdf2-password');
 const hasher = bkfd2Password();
 
 router.post('/login', (req, res, next) => {
-    User.findOne({"id" : req.body.id, "passwd": req.body.passwd }, (err, user) => {
-        if(err) return res.status(500).json(util.successFalse(user, err));
-        if(!user) return res.status(404).json(util.successFalse(user, err));
+    User.findOne({"id" : req.body.id }, (err, user) => {
+        if(err) return res.json(util.successFalse(user, err));
+        if(!user) return res.json(util.successFalse(user, err));
 
-        //token 발급
-        const token = jwt.sign(
-            { id: user.id },
-            //비밀키
-            confJWT.secretKey,
-            {
-                //24시간동안 유효
-                expiresIn: confJWT.expiresIn
+        //기존 솔트값이용해서 암호화하고 일치하면 로그인
+        hasher({password:req.body.passwd, salt:user.salt}, (err, pass, salt, hash) => {
+            if(err) return res.json(util.successFalse(user, err));
+            
+            if(hash === user.passwd){
+                //token 발급
+                const token = jwt.sign(
+                    { id: user.id },
+                    //비밀키
+                    confJWT.secretKey,
+                    {
+                        //24시간동안 유효
+                        expiresIn: confJWT.expiresIn
+                    }
+                );
+                res.cookie("user", token);
+                return res.json(util.successTrue("login success"));
+            }else{
+                return res.json(util.successFalse("login failed"));
             }
-        );
-
-        res.cookie("user", token);
-        res.json(user);
+        });
     });
 });
 
-//임시 회원가입
+//회원가입
 router.post('/join', (req, res, next) => {
     const user = new User();
 
