@@ -1,6 +1,7 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const JWT = require('./config').JWT;
 
-var util = {};
+const util = {};
 
 util.successTrue = data => {
   return {
@@ -22,10 +23,10 @@ util.successFalse = (err, message) => {
 };
 
 util.parseError = errors => {
-  var parsed = {};
+  const parsed = {};
   if(errors.name == 'ValidationError'){
-    for(var name in errors.errors){
-      var validationError = errors.errors[name];
+    for(let name in errors.errors){
+      let validationError = errors.errors[name];
       parsed[name] = { message:validationError.message };
     }
   } else if(errors.code == '11000' && errors.errmsg.indexOf('username') > 0) {
@@ -39,13 +40,14 @@ util.parseError = errors => {
 
 // middlewares
 util.isLoggedin = (req,res,next) => {
-  var token = req.headers['x-access-token'];
-  if (!token) return res.json(util.successFalse(null,'token is required!'));
+  const token = req.cookies.user;
+  if (!token) next();
   else {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, JWT.secretKey, (err, decoded) => {
       if(err) return res.json(util.successFalse(err));
       else{
         req.decoded = decoded;
+        console.log(req.decoded);
         next();
       }
     });
