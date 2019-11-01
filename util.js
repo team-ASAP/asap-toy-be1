@@ -47,7 +47,6 @@ util.isLoggedin = (req,res,next) => {
       if(err) return res.json(util.successFalse(err));
       else{
         req.decoded = decoded;
-        console.log(req.decoded);
         next();
       }
     });
