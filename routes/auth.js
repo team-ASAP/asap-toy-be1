@@ -121,12 +121,17 @@ router.post('/withdrawal', util.isLoggedin, (req, res, next) => {
 });
 
 //내 정보
-router.get('/me', (req, res, next) => {
+router.get('/me', util.isLoggedin, (req, res, next) => {
+    if(req.decoded){
+        const user = {
+            id: req.decoded.id,
+            data: req.decoded.data
+        };
 
-});
-
-router.get('/refresh', (req, res, next) => {
-
+        return res.json(util.successTrue(user));
+    }else{
+        return res.json(util.successFalse('로그인 상태가 아닙니다.'));
+    }
 });
 
 module.exports = router;
