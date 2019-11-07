@@ -4,11 +4,6 @@ var dateUtils = require('date-utils');
 const Project = require('../model/project');
 const util = require('../util');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
 router.get('/list', (req, res, next) => {
   Project.find({"isDeleted" : false}, (err, projects) => {
     res.json(util.successTrue(projects));
@@ -28,7 +23,7 @@ router.post('/create', (req, res, next) => {
 
   // 그냥 new Date(req.body.starDate/endDate)로 넘기면 로컬 시간으로 들어가지 않아
   // format 함수 추가했습니다
-  project.startDate = new Date(req.body.startDate).toFormat('YYYY-MM-DD');
+  project.startDate = new Date(req.body.D).toFormat('YYYY-MM-DD');
   project.endDate = new Date(req.body.endDate).toFormat('YYYY-MM-DD');
   project.createdDate = newDate.toFormat('YYYY-MM-DD');
 
@@ -72,7 +67,7 @@ router.post('/delete', (req, res, next) => {
 router.post('/modify', (req, res, next) => {
   const newDate = new Date();
 
-  Project.update({"_id":req.body.id, isDeleted: false}, {
+  Project.update({"_id":req.body._id, isDeleted: false}, {
     title: req.body.title,
     startDate: new Date(req.body.startDate).toFormat('YYYY-MM-DD'),
     endDate: new Date(req.body.endDate).toFormat('YYYY-MM-DD'),

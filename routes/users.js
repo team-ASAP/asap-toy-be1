@@ -6,15 +6,27 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-// name -> id
-router.get('/:id', (req, res, next) => {
-  User.find({id : req.params.id }, (err, user) =>{
+/**
+ * @swagger
+ * /user/:name:
+ *   get:
+ *     summary: 사용자 정보 가져오기
+ *     tags: [User]
+ */
+router.get('/:name', (req, res, next) => {
+  User.find({name : req.params.name }, (err, user) =>{
     res.json({ user: user });
   });
 });
 
-// name -> id
-router.post('/join/:id/:passwd', (req, res, next) => {
+/**
+ * @swagger
+ * /user/join/:name/:passwd:
+ *  post:
+ *    summary: 가입
+ *    tags: [User]
+ */
+router.post('/join/:name/:passwd', (req, res, next) => {
   const user = new User();
   user.id = req.params.id;
   user.passwd = req.params.passwd;
