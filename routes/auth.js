@@ -8,6 +8,15 @@ const confJWT = require('../config').JWT;
 const bkfd2Password = require('pbkdf2-password');
 const hasher = bkfd2Password();
 
+
+/** 
+ * @swagger
+ * /auth/login:
+ *  post:
+ *      Parameters: id, passwd
+ *      summary: 로그인
+ *      tags: [Auth]
+ */
 //로그인
 router.post('/login', util.isLoggedin, (req, res, next) => {
     if (req.decoded) {
