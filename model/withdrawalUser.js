@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //schema
-const userSchema = new Schema({
+const widthdrawalUserSchema = new Schema({
   id: {
     type: String,
     required: [true, ' Id is required!'],
@@ -12,10 +12,8 @@ const userSchema = new Schema({
   },
   passwd: {
     type: String,
-    required: [true, 'Password is required!']
-  },
-  salt: {
-    type: String
+    required: [true, 'Password is required!'],
+    select: false,
   },
   salt: {
     type: String
@@ -23,4 +21,4 @@ const userSchema = new Schema({
   data: Object,
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('withdrawalUser', widthdrawalUserSchema);
