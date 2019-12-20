@@ -17,6 +17,9 @@ const userSchema = new Schema({
   salt: {
     type: String
   },
+  salt: {
+    type: String
+  },
   data: Object,
 });
 

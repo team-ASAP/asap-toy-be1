@@ -10,6 +10,5 @@
 ### REST API서버를 개발하는데 도움이 되는 프로그램
 - postman
 
-
 ### 부가 설명
 router를 작성하실 때 util.js라는 파일을 import하시고 성공했을때는 successTrue, 실패했을때는 successFalse로 값을 던져주시길 바랍니다. 예시코드는 /routes/users.js를 참고하세요.
