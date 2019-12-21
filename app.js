@@ -13,7 +13,6 @@ db();
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
-const apiDocsRouter = require('./routes/apiDocs');
 const projectsRouter = require('./routes/projects');
 
 // view engine setup
@@ -26,10 +25,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(swaggerDoc);
+
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/apiDocs', apiDocsRouter);
 app.use('/projects', projectsRouter);
 
 
