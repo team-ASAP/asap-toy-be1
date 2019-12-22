@@ -12,6 +12,8 @@ db();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+//yhana972
+const joinRouter = require('./routes/join');
 
 app.use(swaggerDoc);
 
@@ -27,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+//yhana972
+app.use('/join', joinRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

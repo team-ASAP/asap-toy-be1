@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Join = new mongoose.Schema({
+const joinSchema = new mongoose.Schema({
     userId: String,
     projectNo: Number,
     createDate: Date,
@@ -12,4 +12,4 @@ const Join = new mongoose.Schema({
     coment: String
 });
 
-mongoose.model('Join', Join);
+mongoose.model('Join', joinSchema);
