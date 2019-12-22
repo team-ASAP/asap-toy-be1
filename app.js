@@ -14,6 +14,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
+app.use(swaggerDoc);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,0 +1,185 @@
+swagger: "2.0"
+info:
+  description: "ASAP 토이 프로젝트 API 명세서"
+  version: "1.0.0"
+  title: "ASAP Toy Project"
+paths:
+  /projects/list:
+    get:
+      tags:
+      - "Project"
+      summary: "프로젝트 리스트 출력"
+      description: "프로젝트 리스트 출력"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/fullProjectm"
+        400:
+          description: "Invalid status value"
+  /projects/delete:
+    post:
+      tags:
+      - "Project"
+      summary: "프로젝트 삭제"
+      description: "프로젝트 삭제"
+      parameters:
+      - name: "deleteProject"
+        in: "body"
+        description: "이미 존재하는 프로젝트 삭제"
+        schema: 
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+              required: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            $ref: "#/definitions/withResponse"
+        400:
+          description: "Invalid status value"
+  /projects/create:
+    post:
+      tags:
+      - "Project"
+      summary: "프로젝트 생성"
+      description: "프로젝스 생성"
+      parameters: 
+      - name: "createProject"
+        in: "body"
+        description: "새 프로젝트 생성"
+        schema:
+          type: "object"
+          properties: 
+            madeId:
+              type: "string"
+              required: true
+            title: 
+              type: "string"
+              required: true
+            startDate:
+              type: "string"
+              pattern: '^\d{4}-\d{2}-\d{2}$'
+              required: true
+            endDate:
+              type: "string"
+              pattern: '^\d{4}-\d{2}-\d{2}$'
+              required: true
+            maxPeople: "integer"
+            format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            $ref: "#/definitions/fullProject"
+        400:
+          description: "Invalid status value"
+  /projects/modify:
+    post:
+      tags:
+      - "Project"
+      summary: "프로젝트 수정"
+      description: "프로젝트 수정"
+      parameters:
+      - name: "modifyProject"
+        in: "body"
+        description: "프로젝트 수정"
+        schema:
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+              required: true
+            title:
+              type: "string"
+              required: true
+            startDate:
+              type: "string"
+              pattern: '^\d{4}-\d{2}-\d{2}$'
+              required: true
+            endDate:
+              type: "string"
+              pattern: '^\d{4}-\d{2}-\d{2}$'
+              required: true
+            maxPeople:
+              type: "integer"
+              format: "int64"
+              required: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            $ref: "#/definitions/withResponse"
+        400:
+          description: "Invalid status value"
+definitions:
+  withResponse:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      message:
+        type: "string"
+      errors:
+        type: "string"
+      data:
+        type: "object"
+        $ref: "#/definitions/Response"
+  fullProject:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      message:
+        type: "string"
+      errors:
+        type: "string"
+      data:
+        type: "object"
+        $ref: "#/definitions/Project"
+  Project:
+    type: "object"
+    properties:
+      madeId:
+        type: "string"
+      title:
+        type: "string"
+      startDate:
+        type: "string"
+        format: "date-time"
+      endDate:
+        type: "string"
+        format: "date-time"
+      maxPeople:
+        type: "integer"
+        format: "int64"
+      createdDate:
+        type: "string"
+        format: "date-time"
+      deletedDate: 
+        type: "string"
+        format: "date-time"
+      modifiedDate:
+        type: "string"
+        format: "date-time"
+      isDeleted:
+        type: "boolean"
+  Response:
+    type: "object"
+    properties: 
+      n:
+        type: "integer"
+        format: "int64"
+      nModified:
+        type: "integer"
+        format: "int64"
+      ok:
+        type: "integer"
+        fortmat: "int64"
