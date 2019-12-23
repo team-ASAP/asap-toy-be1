@@ -11,9 +11,11 @@ const app = express();
 db();
 
 const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
+const projectsRouter = require('./routes/projects');
 //yhana972
-const joinRouter = require('./routes/join');
+const joinRouter = require('./routes/joinProject');
 
 app.use(swaggerDoc);
 
@@ -27,10 +29,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(swaggerDoc);
+
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter);
 //yhana972
-app.use('/join', joinRouter);
+app.use('/joinProject', joinRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
