@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var config = require('./config');
 
 var util = {};
 
@@ -39,10 +40,10 @@ util.parseError = function(errors){
 
 // middlewares
 util.isLoggedin = function(req,res,next){
-  var token = req.headers['x-access-token'];
+  var token = req.cookies.user;
   if (!token) return res.json(util.successFalse(null,'token is required!'));
   else {
-    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
+    jwt.verify(token, config.JWT.secretKey, function(err, decoded) {
       if(err) return res.json(util.successFalse(err));
       else{
         req.decoded = decoded;

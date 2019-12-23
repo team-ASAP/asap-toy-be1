@@ -5,39 +5,32 @@ const dormantUser = require('../model/dormantUser');
 const withdrawalUser = require('../model/withdrawalUser');
 const util = require('../util');
 
-/**
- * @swagger
- * /user/:name:
- *   get:
- *     summary: 사용자 정보 가져오기
- *     tags: [User]
- */
-router.get('/:name', (req, res, next) => {
+//아이디로 회원 찾기 (미완)
+router.get('/find-id/:id', (req, res, next) => {
   User.find({name : req.params.name }, (err, user) =>{
     res.json({ user: user });
   });
 });
 
-/**
- * @swagger
- * /user/join/:name/:passwd:
- *  post:
- *    summary: 가입
- *    tags: [User]
- */
-router.post('/join/:name/:passwd', (req, res, next) => {
-  const user = new User();
-  user.id = req.params.id;
-  user.passwd = req.params.passwd;
+//내 정보
+router.get('/me', util.isLoggedin, (req, res, next) => {
+  if(req.decoded){
+      const me = {
+          id: req.decoded.id,
+          data: null
+      };
 
-  user.save(err =>{
-    if(err){
-      console.error(err);
-      res.send("FAILURE");
-      return;
-    }
-    res.send("SUCCESS");
-  });
+      User.findOne({ id: me.id }, (err, user)=> {
+          if(err) return res.json(util.successFalse(err, '몽고디비에러'));
+          if(!user) return res.json(tuil.successFalse(err, '일치하는 회원이 없음'));
+
+          me.data = user.data;
+
+          return res.json(util.successTrue(me));
+      });
+  }else{
+      return res.json(util.successFalse('로그인 상태가 아닙니다.'));
+  }
 });
 
 module.exports = router;

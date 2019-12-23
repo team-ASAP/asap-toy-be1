@@ -8,15 +8,6 @@ const confJWT = require('../config').JWT;
 const bkfd2Password = require('pbkdf2-password');
 const hasher = bkfd2Password();
 
-
-/** 
- * @swagger
- * /auth/login:
- *  post:
- *      Parameters: id, passwd
- *      summary: 로그인
- *      tags: [Auth]
- */
 //로그인
 router.post('/login', util.isLoggedin, (req, res, next) => {
     if (req.decoded) {
@@ -126,27 +117,6 @@ router.post('/withdrawal', util.isLoggedin, (req, res, next) => {
         });
     }else{
         return res.json(util.successFalse("토큰 만료 혹은 잘못된 접근"));
-    }
-});
-
-//내 정보
-router.get('/me', util.isLoggedin, (req, res, next) => {
-    if(req.decoded){
-        const me = {
-            id: req.decoded.id,
-            data: null
-        };
-
-        User.findOne({ id: me.id }, (err, user)=> {
-            if(err) return res.json(util.successFalse(err, '몽고디비에러'));
-            if(!user) return res.json(tuil.successFalse(err, '일치하는 회원이 없음'));
-
-            me.data = user.data;
-
-            return res.json(util.successTrue(me));
-        });
-    }else{
-        return res.json(util.successFalse('로그인 상태가 아닙니다.'));
     }
 });
 

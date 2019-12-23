@@ -17,10 +17,11 @@ const userSchema = new Schema({
   salt: {
     type: String
   },
-  salt: {
-    type: String
-  },
-  data: Object
+  data: Object,
+  createdDate: Date, // 생성된 날짜 - 수정 불가
+  deletedDate: Date, // 삭제된 날짜 - 수정 불가
+  modifiedDate: Date, // 수정된 날짜 
+  isDeleted: Boolean // 삭제된 포스트인지 확인
 });
 
 module.exports = mongoose.model('User', userSchema);

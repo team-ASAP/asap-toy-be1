@@ -16,7 +16,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/fullProjectm"
+              $ref: "#/definitions/fullProject"
         400:
           description: "Invalid status value"
   /projects/delete:
@@ -119,6 +119,117 @@ paths:
             $ref: "#/definitions/withResponse"
         400:
           description: "Invalid status value"
+  /auth/login:
+    post:
+      tags:
+      - "Auth"
+      summary: "로그인"
+      description: "로그인"
+      parameters: 
+      - name: "login"
+        in: "body"
+        description: "로그인"
+        schema:
+          type: "object"
+          properties: 
+            id:
+              type: string
+              required: true
+            passwd:
+              type: string
+              required: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: string
+                required: true
+              data:
+                type: "string"
+              createdDate:
+                type: "string"
+                format: "date-time"
+              deletedDate: 
+                type: "string"
+                format: "date-time"
+              modifiedDate:
+                type: "string"
+                format: "date-time"
+              isDeleted:
+                type: "boolean"
+  /auth/join:
+    post:
+      tags:
+      - "Auth"
+      summary: "회원가입"
+      description: "회원가입"
+      parameters: 
+      - name: "join"
+        in: "body"
+        description: "회원가입"
+        schema:
+          type: "object"
+          properties: 
+            id:
+              type: string
+              required: true
+            passwd:
+              type: string
+              required: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: string
+                required: true
+              data:
+                type: "string"
+              createdDate:
+                type: "string"
+                format: "date-time"
+              deletedDate: 
+                type: "string"
+                format: "date-time"
+              modifiedDate:
+                type: "string"
+                format: "date-time"
+              isDeleted:
+                type: "boolean"
+  /auth/withdrawal:
+    post:
+      tags:
+      - "Auth"
+      summary: "계정 탈퇴 처리"
+      description: "로그인 된 계정으로 탈퇴처리를 하기 때문에, 패스워드만 입력받습니다."
+      parameters: 
+      - name: "withdrawal"
+        in: "body"
+        description: "탈퇴"
+        schema:
+          type: "object"
+          properties:
+            passwd:
+              type: string
+              required: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: string
+                required: true
+              data:
+                type: "string"
+              isDeleted:
+                type: "boolean"
 definitions:
   withResponse:
     type: "object"
@@ -160,6 +271,28 @@ definitions:
       maxPeople:
         type: "integer"
         format: "int64"
+      createdDate:
+        type: "string"
+        format: "date-time"
+      deletedDate: 
+        type: "string"
+        format: "date-time"
+      modifiedDate:
+        type: "string"
+        format: "date-time"
+      isDeleted:
+        type: "boolean"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      passwd:
+        type: "string"
+      salt:
+        type: "string"
+      data:
+        type: "string"
       createdDate:
         type: "string"
         format: "date-time"
