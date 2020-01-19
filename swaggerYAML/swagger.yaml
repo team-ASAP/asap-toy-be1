@@ -230,6 +230,21 @@ paths:
                 type: "string"
               isDeleted:
                 type: "boolean"
+  /join-project/list:
+    get:
+      tags:
+      - "joinProject"
+      summary: "회원이 참여한 프로젝트 리스트 출력"
+      description: "회원이 참여한 프로젝트 리스트 출력"
+      responses:
+        200:
+          description: "succesful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/joinProject"
+        400:
+          description: "Invalid status value"
 definitions:
   withResponse:
     type: "object"
@@ -304,6 +319,21 @@ definitions:
         format: "date-time"
       isDeleted:
         type: "boolean"
+  joinProject:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      proejctNo:
+        type: "integer"
+      createDate:
+        type: "date-time"
+      modifiedDate:
+        type: "date-time"
+      isApproval:
+        type: "boolean"
+      comment:
+        type: "string"
   Response:
     type: "object"
     properties: 
