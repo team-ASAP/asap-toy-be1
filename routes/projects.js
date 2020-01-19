@@ -23,7 +23,7 @@ router.post('/create', (req, res, next) => {
 
   // 그냥 new Date(req.body.starDate/endDate)로 넘기면 로컬 시간으로 들어가지 않아
   // format 함수 추가했습니다
-  project.startDate = new Date(req.body.D).toFormat('YYYY-MM-DD');
+  project.startDate = new Date(req.body.startDate).toFormat('YYYY-MM-DD');
   project.endDate = new Date(req.body.endDate).toFormat('YYYY-MM-DD');
   project.createdDate = newDate.toFormat('YYYY-MM-DD');
 
