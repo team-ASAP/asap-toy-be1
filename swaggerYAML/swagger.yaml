@@ -245,6 +245,54 @@ paths:
               $ref: "#/definitions/joinProject"
         400:
           description: "Invalid status value"
+  /join-project/create:
+    post:
+      tags:
+      - "joinProject"
+      summary: "프로젝트 참여하기"
+      description: "프로젝트 참여하기"
+      parameters:
+      - name: "joinProject"
+        in: "body"
+        description: "프로젝트 참여하기"
+        schema:
+          type: "object"
+          properties:
+            userId:
+              type: "string"
+              required: true
+            projectNo:
+              type: "integer"
+              required: true
+            comment:
+              type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            $ref: "#/definitions/joinProject"
+        400:
+          description: "Invalid status value"
+  /join-project/approval/{userId}:
+    post:
+      tags:
+      - "joinProject"
+      summary: "프로젝트 참가 승인"
+      description: "프로젝트 참가 승인"
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            $ref: "#/definitions/joinProject"
+        400:
+          description: "Invalid status value"
 definitions:
   withResponse:
     type: "object"
@@ -327,11 +375,17 @@ definitions:
       proejctNo:
         type: "integer"
       createDate:
-        type: "date-time"
+        type: "string"
+        format: "date-time"
       modifiedDate:
-        type: "date-time"
+        type: "string"
+        format: "date-time"
+      deletedDate:
+        type: "string"
+        format: "date-time"
       isApproval:
         type: "boolean"
+        default: false
       comment:
         type: "string"
   Response:

@@ -9,7 +9,7 @@ const bkfd2Password = require('pbkdf2-password');
 const hasher = bkfd2Password();
 
 //로그인
-router.post('/login', util.isLoggedin, (req, res, next) => {
+router.post('/login', (req, res, next) => {
     if (req.decoded) {
         return res.json(util.successTrue(req.decoded));
     } else {
@@ -43,7 +43,7 @@ router.post('/login', util.isLoggedin, (req, res, next) => {
 });
 
 //회원가입
-router.post('/join', util.isLoggedin, (req, res, next) => {
+router.post('/join', (req, res, next) => {
     if (req.decoded) {
         return res.json(util.successTrue(req.decoded));
     } else {

@@ -20,14 +20,11 @@ router.get('/', function(req, res, next) {
 
  //1. 프로젝트 list 생성하기
  router.post('/create', (req, res, next)=>{
-   console.log(joinProject);
    var jp = new joinProject();
    var nowDate = new Date();
    jp.userId = req.body.userId;
    jp.projectNo = req.body.projectNo;
    jp.createDate = nowDate.toFormat('YYYY-MM-DD');
-   jp.modifiedDate = req.body.modifiedDate;
-   jp.deleteDate = req.body.deleteDate;
    jp.comment = req.body.comment;
 
    jp.save((err, value)=>{
